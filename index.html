@@ -1,0 +1,273 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="refresh" content="6">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  var spData = null;
+  function doData(json) {
+      spData = json.feed.entry;
+  }
+  
+  function drawCell(tr, val) {
+      var td = $("<td/>");
+      tr.append(td);
+      td.append(val);
+      return td;
+  }
+  function drawRow(table, rowData) {
+    if (rowData == null) return null;
+    if (rowData.length == 0) return null;
+    var tr = $("<tr/>");
+    table.append(tr);
+    for(var c=0; c<rowData.length; c++) {
+      drawCell(tr, rowData[c]);
+    }
+    return tr;
+  }
+  
+  function drawTable(parent) {
+    var table = $("<table/>");
+    parent.append(table);
+    return table;
+  }
+
+  function readData(parent) {
+      var data = spData;
+      var table = drawTable(parent);
+      var rowData = [];
+      
+      console.log(data);
+
+      for(var r=0; r<data.length; r++) {
+          var cell = data[r]["gs$cell"];
+          
+          var val = cell["$t"];
+
+          var state;
+          if (cell.col == 2) {
+          console.log(cell["$t"]);
+          a = cell["$t"];
+          switch(a){
+            case "AK":
+  state = "190491828";
+break;
+case "AL":
+  state = "1887067030";
+break;
+case "AR":
+  state = "1585633145";
+break;
+case "AS":
+  state = "1951307536";
+break;
+case "AZ":
+  state = "951303088";
+break;
+case "CA":
+  state = "554621274";
+break;
+case "CO":
+  state = "917244802";
+break;
+case "CT":
+  state = "1878064739";
+break;
+case "DC":
+  state = "1394468287";
+break;
+case "DE":
+  state = "1974862832";
+break;
+case "FL":
+  state = "624569127";
+break;
+case "GA":
+  state = "1153899501";
+break;
+case "GU":
+  state = "378346673";
+break;
+case "HI":
+  state = "1775048504";
+break;
+case "IA":
+  state = "840652371";
+break;
+case "ID":
+  state = "1965523075";
+break;
+case "IL":
+  state = "11941681";
+break;
+case "IN":
+  state = "730527560";
+break;
+case "KS":
+  state = "230613564";
+break;
+case "KY":
+  state = "1790926966";
+break;
+case "LA":
+  state = "1386504437";
+break;
+case "MA":
+  state = "39450924";
+break;
+case "MD":
+  state = "582304744";
+break;
+case "ME":
+  state = "268794524";
+break;
+case "MI":
+  state = "634083959";
+break;
+case "MN":
+  state = "1654486158";
+break;
+case "MO":
+  state = "1021045902";
+break;
+case "MP":
+  state = "1771053812";
+break;
+case "MS":
+  state = "1264664262";
+break;
+case "MT":
+  state = "180452935";
+break;
+case "NC":
+  state = "596985154";
+break;
+case "ND":
+  state = "1524221351";
+break;
+case "NE":
+  state = "1480614357";
+break;
+case "NH":
+  state = "1891440637";
+break;
+case "NJ":
+  state = "1227781679";
+break;
+case "NM":
+  state = "219148702";
+break;
+case "NV":
+  state = "694601559";
+break;
+case "NY":
+  state = "161756959";
+break;
+case "OH":
+  state = "373001276";
+break;
+case "OK":
+  state = "1968793463";
+break;
+case "OR":
+  state = "2139634853";
+break;
+case "PA":
+  state = "1220433418";
+break;
+case "PR":
+  state = "844496262";
+break;
+case "RI":
+  state = "1940341524";
+break;
+case "SC":
+  state = "1410367221";
+break;
+case "SD":
+  state = "2125394065";
+break;
+case "TN":
+  state = "882486339";
+break;
+case "TX":
+  state = "499560467";
+break;
+case "UT":
+  state = "1124384109";
+break;
+case "VA":
+  state = "888682509";
+break;
+case "VI":
+  state = "354465819";
+break;
+case "VT":
+  state = "385180986";
+break;
+case "WA":
+  state = "1827230370";
+break;
+case "WI":
+  state = "1429538862";
+break;
+case "WV":
+  state = "606702038";
+break;
+case "WY":
+  state = "561508328";
+            } 
+
+
+          }
+
+
+          if (cell.col == 2){
+            prefix = '<a href = "https://docs.google.com/spreadsheets/d/1xF1cdazAejukTt2M6-aAXWG6fivTHFqt8rurF8euXOE/edit#gid=' + state + '" target = "sheet">';
+            suffix = "</a>";
+          }
+          else {
+            prefix = "";
+            suffix = "";
+          }
+
+          if ( cell.row > 3 && (cell.col == 2 || cell.col == 8 || cell.col == 9)) {
+          var place = prefix + cell["$t"] + suffix 
+        if (cell.col == 2) {
+              drawRow(table, rowData);
+              rowData = [];
+          }
+        rowData.push(place);
+        }
+          
+          
+      }
+      drawRow(table, rowData);
+  }
+  $(document).ready(function(){
+      readData($("#data"));
+  });
+
+  </script>   
+  
+<script src="https://spreadsheets.google.com/feeds/cells/1xF1cdazAejukTt2M6-aAXWG6fivTHFqt8rurF8euXOE/1/public/values?alt=json-in-script&callback=doData"></script>
+<style type="text/css">
+  table {border-collapse: collapse; width: 100%;}
+  th, td {border: thin solid black; padding: 3px;}
+  tr.head th, tr.head td {background-color: #EDEDED; border-bottom: 4px double black;}
+  span.linetitle {font-weight: bold;}
+  div.lineclass {font-style: italic;}
+  .title, .result {width: 80%;}
+  .notes {width: 15%;}
+  h1 {text-align: center;}
+  body {margin: 12px; font-size: 12px;}
+</style>
+<style type="text/css" media="print">
+  form {display: none;}
+</style>
+</head>
+<body>
+<h2>welcome to race data entry</h2>
+<div id="data"/>
+</body>
+</html> 
